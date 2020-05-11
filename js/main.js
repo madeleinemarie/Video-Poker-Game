@@ -2,9 +2,7 @@
 const suits = ['c', 'd', 'h', 's'];
 const ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; //1 - Ace, 11 - Jack, 12 - Queen, 13 - King
 
-const deckOrdered = createOrderedDeck();
-const deckShuffled = createShuffledDeck();
-const playerHand = [];
+
 
 class Card {
     constructor(suit, rank) {
@@ -37,12 +35,23 @@ function createShuffledDeck() {
 
 function createStartingHand() {
     for(let i = 0; i < 5; i++) {
-        console.log(deckShuffled[i]);
-        playerHand.push(deckShuffled[i]);
+        console.log(deckShuffled[0]);
+        playerHand.push(deckShuffled.shift());
     }
+    console.log('Player Hand -----');
+    console.log(playerHand);
+    console.log('New deck, should be minus 5-----');
+    console.log(deckShuffled);
 };
 
-createStartingHand();
+const deckOrdered = createOrderedDeck();
+const deckShuffled = createShuffledDeck();
+const playerHand = [];
 
 
- 
+document.getElementById("deal-five").addEventListener("click", createStartingHand);
+
+console.log("Ordered Deck -------");
+console.log(deckOrdered);
+console.log("Shuffled Deck -------");
+console.log(deckShuffled);
