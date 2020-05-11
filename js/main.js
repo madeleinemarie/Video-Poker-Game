@@ -1,7 +1,32 @@
 
+const suits = ['c', 'd', 'h', 's'];
+const ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,] //1 - Ace, 11 - Jack, 12 - Queen, 13 - King
+
+class Card {
+    constructor(suit, rank) {
+        this.cardSuit = suit;
+        this.cardRank = rank;
+        this.flipped = true;// (images are named 01.jpg, 02.jpg, etc.
+    }
+}
+
+function createOrderedDeck() {
+    const deck = [];
+    suits.forEach(function(suit) {
+        ranks.forEach(function(rank) {
+            deck.push(new Card(suit, rank));
+        })
+    })
+    return deck;
+}
+
+const deckOrdered = createOrderedDeck();
+console.log(deckOrdered);
+
 // 1. Create a new deck of all 52 cards
+
 //      A. Loop through all suits
-//      B. Within each suit, loop through all faces (1-13)
+//      B. Within each suit, loop through all ranks (1-13)
 //          b1. Create a new Card object by passing in the indices from both for loops, store new Card object in variable for next step.
 //          b2. Push new card object into deckOrdered array
 
@@ -37,7 +62,7 @@
 //          a2. Remove img elements that have been flipped, append new img elements in their place 	// how to identify the position of flipped/discarded cards?
 
 // 5. Check cards in cardsInPlay against win condition logic
-//      A. Check face of cards first
+//      A. Check rank of cards first
 //          a1. if it meets certain conditions then check for royal flush, flush, and straight flush
 //      B. Check for three of a kind, four of a kind, full house, two pair, straight, and jacks or better
 //      C. If a win condition is met, display name of win condition, else display “Bust”
