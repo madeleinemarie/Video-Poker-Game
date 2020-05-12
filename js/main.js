@@ -64,16 +64,17 @@ function handSort() {
 }
 
 function checkWin() {
+    console.log("Inside checkwin");
     handSort();
     isFlush = flushFlag();
+    isStraight = straightFlag();
     if(isFlush) {
-        checkRoyal();
+        //checkRoyal();
     } else {
-        checkStraight();
     }
 }
 
-function flushFlag() {
+function flushFlag() { //checks if cards are all the same suit
     let suit = playerHand[0].cardSuit;
     for (let card of playerHand) {
         if (card.cardSuit != suit) {
@@ -83,6 +84,14 @@ function flushFlag() {
     return true;
 };
 
-function checkRoyal() {
+function straightFlag() {
+    let set = new Set(playerHand.map(item => item.cardRank));
+    if(set.size !== 5){     //checks if all card ranks are different
+        return false;
+    }
 
-}
+    let firstRank = playerHand[0].cardRank;
+    let lastRank = playerHand[4].cardRank;
+    return (lastRank - firstRank) == 4;
+};
+
