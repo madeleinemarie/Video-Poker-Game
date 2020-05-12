@@ -31,7 +31,8 @@ function createShuffledDeck() {
       shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
     };
     return shuffledDeck;
-  };
+};
+
 
 function createStartingHand() {
     for(let i = 0; i < 5; i++) {
@@ -44,10 +45,12 @@ function createStartingHand() {
     console.log(deckShuffled);
 };
 
+
 const deckOrdered = createOrderedDeck();
 const deckShuffled = createShuffledDeck();
 const playerHand = [];
-
+const sortedHand = [];
+let payout = null;
 
 document.getElementById("deal-five").addEventListener("click", createStartingHand);
 
@@ -55,3 +58,31 @@ console.log("Ordered Deck -------");
 console.log(deckOrdered);
 console.log("Shuffled Deck -------");
 console.log(deckShuffled);
+
+function handSort() { 
+    playerHand.sort((a, b) => a.cardRank - b.cardRank); //sorts cards by rank for easier win checking
+}
+
+function checkWin() {
+    handSort();
+    isFlush = flushFlag();
+    if(isFlush) {
+        checkRoyal();
+    } else {
+        checkStraight();
+    }
+}
+
+function flushFlag() {
+    let suit = playerHand[0].cardSuit;
+    for (let card of playerHand) {
+        if (card.cardSuit != suit) {
+            return false;
+        }
+    }
+    return true;
+};
+
+function checkRoyal() {
+
+}
