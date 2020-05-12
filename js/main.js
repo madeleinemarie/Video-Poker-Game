@@ -64,12 +64,17 @@ function handSort() {
 }
 
 function checkWin() {
-    console.log("Inside checkwin");
+    //console.log("Inside checkwin");
     handSort();
-    isFlush = flushFlag();
-    isStraight = straightFlag();
-    if(isFlush) {
-        //checkRoyal();
+    let isFlush = flushFlag();
+    let isStraight = straightFlag();
+    if(isFlush && isStraight) {
+        let isRoyal = checkRoyal();
+        if(isRoyal) {
+                //set payout value
+        } else {
+
+        }
     } else {
     }
 }
@@ -89,9 +94,20 @@ function straightFlag() {
     if(set.size !== 5){     //checks if all card ranks are different
         return false;
     }
-
     let firstRank = playerHand[0].cardRank;
     let lastRank = playerHand[4].cardRank;
     return (lastRank - firstRank) == 4;
+};
+
+function checkRoyal() {
+    royalArr = [1, 10, 11, 12, 13];
+    rankArr = playerHand.map(item => item.cardRank);
+    console.log(rankArr);
+    for (let i = 0; i < royalArr.length; i++) {
+        if (royalArr[i] !== rankArr[i]) {
+            return false;
+        } 
+    }
+    return true;
 };
 
