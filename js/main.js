@@ -68,21 +68,20 @@ function checkWin() {
     handSort();
     let isFlush = flushFlag();
     let isStraight = straightFlag();
+    let isFourOfAKind = checkFourOfAKind();
+    let isFullHouse = checkFullHouse();
     if(isFlush && isStraight) {
         let isRoyal = checkRoyal();
         if(isRoyal) {
-                //set payout value
-        } else {
-
+            payout = 1;
         }
-    } else {
     }
-}
+};
 
-function flushFlag() { //checks if cards are all the same suit
+function flushFlag() { 
     let suit = playerHand[0].cardSuit;
     for (let card of playerHand) {
-        if (card.cardSuit != suit) {
+        if (card.cardSuit != suit) {     //checks if cards are all the same suit
             return false;
         }
     }
@@ -111,3 +110,21 @@ function checkRoyal() {
     return true;
 };
 
+function checkOtherHands() {
+    let counts = {};
+    playerHand.forEach(function(singleCard) {
+        let singleRank = singleCard.cardRank;
+        counts[singleRank] = counts[singleRank] ? counts[singleRank] + 1 : 1;
+    });
+    if (Object.values(counts).includes(4)) { // Four of a Kind
+        payout = 4;
+    } else if (Object.values(counts).includes(2) && Object.values(counts).includes(3)) { // Full House
+        payout = 5;
+    } else if (Object.values(counts).includes(3)) { // Three of a Kind
+        payout = 3;
+    } else if (Object.values(counts).filter(item => item == 2).length == 2) { // Two Pairs
+        payout = 2;
+    } else {
+        payout = null;
+    }
+};
