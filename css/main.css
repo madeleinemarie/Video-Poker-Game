@@ -5,3 +5,11 @@
 .hide {
     display: none;
 }
+
+img {
+    border: 2px solid black;
+    margin: 1em;
+    border-radius: .5em;
+    max-width: 180px;
+    height: auto;
+}
