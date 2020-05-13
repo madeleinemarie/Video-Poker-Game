@@ -77,6 +77,7 @@ function init() {
     drawButton.addEventListener('click', drawCards); 
     betMinusBtn.addEventListener('click', betDecrement);
     betPlusBtn.addEventListener('click', betIncrement);
+    standButton.addEventListener('click', drawCards);
     bankDisplay.innerHTML = bankBalance;
     message.innerHTML = 'Place your bet!';
     currentBet.innerHTML = bet;
@@ -119,13 +120,18 @@ function createStartingHand() {
     console.log(playerHand);
     console.log('New deck, should be minus 5-----');
     console.log(deckShuffled);
+    dealBtn.disabled = true;
+    standButton.disabled = false;
+    betPlusBtn.disabled = true;
+    betMinusBtn.disabled = true;
     renderHand();
 };
 
 function renderHand() {
     for (let i = 0; i < playerHand.length; i++){
+        imgPath = 'images/' + playerHand[i].cardSuit + playerHand[i].cardRank + '.svg';
 		let cardElement = document.createElement('img');
-		cardElement.setAttribute('src', 'images/facetest.svg');
+		cardElement.setAttribute('src', imgPath);
 		cardElement.setAttribute('data-id', i);
 		cardElement.addEventListener('click', flipCard);
 		gameTable.appendChild(cardElement);
@@ -155,9 +161,12 @@ function betIncrement() {
 
 function clearTable() {
     console.log("Table was cleared");
-	for (let i = 0; i < playerHand.length; i++){
-		gameTable.removeChild(gameTable.childNodes[0]);
-	}
+	// for (let i = 0; i < playerHand.length; i++){
+	// 	gameTable.removeChild(gameTable.childNodes[0]);
+    // }
+    while(gameTable.hasChildNodes()){
+        gameTable.removeChild(gameTable.lastChild);
+    }
 }
 
 function flipCard(e) {
@@ -174,6 +183,7 @@ function flipCard(e) {
     } else {
         e.target.setAttribute('src', 'images/facetest.svg');
     }
+    standButton.disabled = true;
     console.log(e);
     console.log(e.target);    
     console.log(playerHand);
@@ -216,9 +226,17 @@ function checkWin() {
     } else {
         checkOtherHands();
     }
+    disableFlip();
     runPayout(payout);
 };
 
+function disableFlip() {
+    let children = gameTable.childNodes;
+    let childArr = Array.from(children);
+    childArr.forEach(function(child) {
+        child.removeEventListener('click', flipCard);
+    })
+}
 
 function flushFlag() { 
     let suit = playerHand[0].cardSuit;
@@ -290,6 +308,8 @@ function newGame(){
     deckOrdered = [];
     deckShuffled = [];
     playerHand = [];
+    betMinusBtn.disabled = false;
+    betPlusBtn.disabled = false;
     toggleButtons();
     clearTable();
     init();
