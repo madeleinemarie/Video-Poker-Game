@@ -1,16 +1,39 @@
 
-const suits = ['c', 'd', 'h', 's'];
-const ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; //1 - Ace, 11 - Jack, 12 - Queen, 13 - King
-
-
-
 class Card {
     constructor(suit, rank) {
         this.cardSuit = suit;
         this.cardRank = rank;
-        this.flipped = true;
+        this.flipped = false;
     }
 };
+
+const suits = ['c', 'd', 'h', 's'];
+const ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; //1 - Ace, 11 - Jack, 12 - Queen, 13 - King
+
+
+let deckOrdered = [];
+let deckShuffled = [];
+const playerHand = [];
+const cardsToDiscard = [];
+//const sortedHand = []; //don't think I need this -- sorting happens when checking win
+let bankBalance = 100;
+let payout = null;
+
+const message = document.getElementById('message');
+const standButton = document.getElementById('stand-btn');
+const drawButton = document.getElementById('draw-btn');
+
+
+
+
+function init() {
+    deckOrdered = createOrderedDeck();
+    deckShuffled = createShuffledDeck();
+    document.getElementById("deal-five").addEventListener("click", createStartingHand);
+    drawButton.addEventListener("click", drawCards); //testing purposes
+    message.innerHTML = "Place your bet!";
+    drawButton.disabled = true;
+}
 
 function createOrderedDeck() {
     const deck = [];
@@ -43,40 +66,77 @@ function createStartingHand() {
     console.log(playerHand);
     console.log('New deck, should be minus 5-----');
     console.log(deckShuffled);
+    renderHand();
 };
 
+function renderHand() {
+    for (let i = 0; i < playerHand.length; i++){
+		let cardElement = document.createElement('img');
+		cardElement.setAttribute('src', 'images/facetest.svg');
+		cardElement.setAttribute('data-id', i);
+		cardElement.addEventListener('click', flipCard);
+		document.getElementById('game-table').appendChild(cardElement);
+	}
+}
 
-const deckOrdered = createOrderedDeck();
-const deckShuffled = createShuffledDeck();
-const playerHand = [];
-const sortedHand = [];
-let payout = null;
+function flipCard(e) {
+    //console.log("flipCard called");
+    //console.log(playerHand[e.target.getAttribute('data-id')]);
+    let isFlipped = playerHand[e.target.getAttribute('data-id')].flipped;
+    isFlipped = !isFlipped;
 
-document.getElementById("deal-five").addEventListener("click", createStartingHand);
+    playerHand[e.target.getAttribute('data-id')].flipped = isFlipped;
+    
+    //console.log(isFlipped); 
+    if (isFlipped) {
+        e.target.setAttribute('src', 'images/blueback.svg');
+        cardsToDiscard.push(playerHand[e.target.getAttribute('data-id')]);
+        //cardsToDiscard[playerHand[e.target.getAttribute('data-id')]].position = playerHand[e.target.getAttribute('data-id')];
+        drawButton.disabled = false;
+    } else {
+        e.target.setAttribute('src', 'images/facetest.svg');
+    }
+    //e.target.src = 'images/facetest.svg'; //e vs e.target?
+    console.log(e);
+    console.log(e.target);    
+    console.log(playerHand);
+}
 
-console.log("Ordered Deck -------");
-console.log(deckOrdered);
-console.log("Shuffled Deck -------");
-console.log(deckShuffled);
+function drawCards() {
+    console.log("draw was clicked");
+    playerHand.forEach(function (card) {
+        if (card.flipped = true) {
+            
+        }
+    })
+}
 
-function handSort() { 
+function sortHand() { 
     playerHand.sort((a, b) => a.cardRank - b.cardRank); //sorts cards by rank for easier win checking
 }
 
 function checkWin() {
     //console.log("Inside checkwin");
-    handSort();
+    sortHand();
     let isFlush = flushFlag();
     let isStraight = straightFlag();
-    let isFourOfAKind = checkFourOfAKind();
-    let isFullHouse = checkFullHouse();
     if(isFlush && isStraight) {
         let isRoyal = checkRoyal();
         if(isRoyal) {
             payout = 1;
+        } else {
+            payout = 8;
         }
+    } else if (isFlush){
+        payout = 6;
+        
+    } else if(isStraight) {
+        payout = 7;
+    } else {
+        checkOtherHands();
     }
 };
+
 
 function flushFlag() { 
     let suit = playerHand[0].cardSuit;
@@ -125,6 +185,17 @@ function checkOtherHands() {
     } else if (Object.values(counts).filter(item => item == 2).length == 2) { // Two Pairs
         payout = 2;
     } else {
-        payout = null;
+        payout = 0;
     }
 };
+
+function runPayout(winNum) {
+
+}
+
+init();
+
+console.log("Ordered Deck -------");
+console.log(deckOrdered);
+console.log("Shuffled Deck -------");
+console.log(deckShuffled);
