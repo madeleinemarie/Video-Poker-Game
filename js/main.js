@@ -9,30 +9,81 @@ class Card {
 
 const suits = ['c', 'd', 'h', 's'];
 const ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; //1 - Ace, 11 - Jack, 12 - Queen, 13 - King
+const payoutInfo = [ 
+    {
+        winName: "Bust", 
+        pay: 0
+    },
+    {
+        winName: "Royal Flush", 
+        pay: 250
+    },
+    {
+        winName: "Two Pair", 
+        pay: 2
+    },
+    {
+        winName: "Three of a Kind", 
+        pay: 3
+    },
+    {
+        winName: "Four of a Kind", 
+        pay: 25
+    },
+    {
+        winName: "Full House", 
+        pay: 9
+    },
+    {
+        winName: "Flush", 
+        pay: 6
+    },
+    {
+        winName: "Straight", 
+        pay: 4
+    },
+    {
+        winName: "Straight Flush", 
+        pay: 50
+    }
+ ];
 
 
 let deckOrdered = [];
 let deckShuffled = [];
-const playerHand = [];
-const cardsToDiscard = [];
-//const sortedHand = []; //don't think I need this -- sorting happens when checking win
+let playerHand = [];
 let bankBalance = 100;
+let bet = 0;
 let payout = null;
 
 const message = document.getElementById('message');
 const standButton = document.getElementById('stand-btn');
 const drawButton = document.getElementById('draw-btn');
-
+const gameTable = document.getElementById('game-table');
+const bankDisplay = document.getElementById('bank-balance');
+const currentBet = document.getElementById('bet-num');
+const betMinusBtn = document.getElementById('bet-minus');
+const betPlusBtn = document.getElementById('bet-plus');
+const dealBtn = document.getElementById('deal-btn');
+const newGameBtn = document.getElementById('newgame-btn');
+const betDisplay = document.getElementById('bet-table');
 
 
 
 function init() {
     deckOrdered = createOrderedDeck();
     deckShuffled = createShuffledDeck();
-    document.getElementById("deal-five").addEventListener("click", createStartingHand);
-    drawButton.addEventListener("click", drawCards); //testing purposes
-    message.innerHTML = "Place your bet!";
+    dealBtn.addEventListener('click', createStartingHand); //testing purposes
+    drawButton.addEventListener('click', drawCards); 
+    betMinusBtn.addEventListener('click', betDecrement);
+    betPlusBtn.addEventListener('click', betIncrement);
+    bankDisplay.innerHTML = bankBalance;
+    message.innerHTML = 'Place your bet!';
+    currentBet.innerHTML = bet;
     drawButton.disabled = true;
+    betMinusBtn.disabled = true;
+    dealBtn.disabled = true;
+    standButton.disabled = true;
 }
 
 function createOrderedDeck() {
@@ -58,6 +109,8 @@ function createShuffledDeck() {
 
 
 function createStartingHand() {
+    bankBalance -= bet;
+    bankDisplay.innerHTML = bankBalance;
     for(let i = 0; i < 5; i++) {
         console.log(deckShuffled[0]);
         playerHand.push(deckShuffled.shift());
@@ -75,13 +128,40 @@ function renderHand() {
 		cardElement.setAttribute('src', 'images/facetest.svg');
 		cardElement.setAttribute('data-id', i);
 		cardElement.addEventListener('click', flipCard);
-		document.getElementById('game-table').appendChild(cardElement);
+		gameTable.appendChild(cardElement);
+	}
+}
+
+function betDecrement() {
+        bet--;
+    if (bet < 1) {
+        betMinusBtn.disabled = true;
+        dealBtn.disabled = true;
+    }
+    currentBet.innerHTML = bet;
+}
+
+function betIncrement() {
+    bet++;
+    dealBtn.disabled = false;
+    if (bet > 4) {
+        betPlusBtn.disabled = true;
+    }
+    if (bet > 0) {
+        betMinusBtn.disabled = false;
+    }
+    currentBet.innerHTML = bet;
+}
+
+function clearTable() {
+    console.log("Table was cleared");
+	for (let i = 0; i < playerHand.length; i++){
+		gameTable.removeChild(gameTable.childNodes[0]);
 	}
 }
 
 function flipCard(e) {
     //console.log("flipCard called");
-    //console.log(playerHand[e.target.getAttribute('data-id')]);
     let isFlipped = playerHand[e.target.getAttribute('data-id')].flipped;
     isFlipped = !isFlipped;
 
@@ -90,13 +170,10 @@ function flipCard(e) {
     //console.log(isFlipped); 
     if (isFlipped) {
         e.target.setAttribute('src', 'images/blueback.svg');
-        cardsToDiscard.push(playerHand[e.target.getAttribute('data-id')]);
-        //cardsToDiscard[playerHand[e.target.getAttribute('data-id')]].position = playerHand[e.target.getAttribute('data-id')];
         drawButton.disabled = false;
     } else {
         e.target.setAttribute('src', 'images/facetest.svg');
     }
-    //e.target.src = 'images/facetest.svg'; //e vs e.target?
     console.log(e);
     console.log(e.target);    
     console.log(playerHand);
@@ -104,11 +181,15 @@ function flipCard(e) {
 
 function drawCards() {
     console.log("draw was clicked");
-    playerHand.forEach(function (card) {
-        if (card.flipped = true) {
-            
-        }
-    })
+    for(i = 0; i < playerHand.length; i++) {
+        if (playerHand[i].flipped === true) {
+            newCard = deckShuffled.shift();
+            playerHand.splice(i, 1, newCard);
+        };
+    }
+    clearTable();
+    renderHand();
+    checkWin();
 }
 
 function sortHand() { 
@@ -135,6 +216,7 @@ function checkWin() {
     } else {
         checkOtherHands();
     }
+    runPayout(payout);
 };
 
 
@@ -190,7 +272,35 @@ function checkOtherHands() {
 };
 
 function runPayout(winNum) {
+    message.innerHTML = payoutInfo[winNum].winName;
+    bankBalance += payoutInfo[winNum].pay * bet;
+    bankDisplay.innerHTML = bankBalance;
+    endGame();
+};
 
+function endGame() {
+    toggleButtons();
+    newGameBtn.addEventListener('click', newGame);
+}
+
+function newGame(){
+    console.log("New Game button clicked");
+    bet = 0;
+    payout = null;
+    deckOrdered = [];
+    deckShuffled = [];
+    playerHand = [];
+    toggleButtons();
+    clearTable();
+    init();
+}
+
+function toggleButtons() {
+    newGameBtn.classList.toggle("hide");
+    dealBtn.classList.toggle("hide");
+    drawButton.classList.toggle("hide");
+    betDisplay.classList.toggle("hide");
+    standButton.classList.toggle("hide");
 }
 
 init();
