@@ -2,8 +2,18 @@
     box-sizing: border-box;
 }
 body {
+    /* background-color: #054B2C; */
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 10%;
+
+}
+
+#full-game {
     background-color: #054B2C;
-    color: white;
+    border-radius: 1em;
+    padding: 2em 5em 5em 5em;
+    margin-top: 5em;
 }
 
 #bet-display {
@@ -14,7 +24,36 @@ body {
     display: none;
 }
 
-img {
+h1 {
+    text-align: center;
+    margin: 2em;
+    color: white;
+}
+
+#message {
+    color: white;
+    display: block;
+}
+
+#interface {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    flex-shrink: 1;
+}
+
+#bet-num {
+    text-align: center;
+}
+
+#game-table {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-table img {
     border: 2px solid #2e2e2e;
     margin: 1em;
     border-radius: .5em;
@@ -23,9 +62,54 @@ img {
     background-color: #fcfcfc;
 }
 
-#game-table {
+#inline {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
+}
+
+.coin-img {
+    height: 24px;
+    padding-top: .2em;
+}
+
+p {
+    font-size: 26px;
+    display: inline;
+}
+
+#button-block {
+    display: flex;
+    flex-shrink: 1;
+}
+
+
+.money-box {
+    background-color: white;
+    height: 10em;
+    width: 15em;
+    min-width: 15em;
+    border-radius: 1em;
+    border: 5px dashed gainsboro;
+}
+
+.middle-space {
+    display: flex;
+    flex-direction: column;
+}
+
+#deal-btn, #stand-btn, #draw-btn {
+    border: 2px solid white;
+    border-radius: .5em;
+    background-color: #054B2C;
+    padding: 1em 2em;
+    font-size: 18px;
+    color: white;
+    max-width: 15em;
+    margin: 1em 2em;
+    min-width: 0;
+}
+
+#deal-btn:disabled, #stand-btn:disabled, #draw-btn:disabled {
+    border: 2px solid grey;
+    color: grey;
 }
