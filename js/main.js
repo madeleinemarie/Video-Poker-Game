@@ -73,7 +73,7 @@ const betDisplay = document.getElementById('bet-table');
 function init() {
     deckOrdered = createOrderedDeck();
     deckShuffled = createShuffledDeck();
-    dealBtn.addEventListener('click', createStartingHand); //testing purposes
+    dealBtn.addEventListener('click', createStartingHand);
     drawButton.addEventListener('click', drawCards); 
     betMinusBtn.addEventListener('click', betDecrement);
     betPlusBtn.addEventListener('click', betIncrement);
@@ -85,6 +85,7 @@ function init() {
     betMinusBtn.disabled = true;
     dealBtn.disabled = true;
     standButton.disabled = true;
+    renderCardBacks();
 }
 
 function createOrderedDeck() {
@@ -110,6 +111,7 @@ function createShuffledDeck() {
 
 
 function createStartingHand() {
+    clearTable();
     bankBalance -= bet;
     bankDisplay.innerHTML = bankBalance;
     for(let i = 0; i < 5; i++) {
@@ -127,6 +129,14 @@ function createStartingHand() {
     renderHand();
 };
 
+function renderCardBacks() {
+    for (let i = 0; i < 5; i++){
+		let cardBackElement = document.createElement('img');
+		cardBackElement.setAttribute('src', 'images/blueback.svg');
+		gameTable.appendChild(cardBackElement);
+	}
+}
+
 function renderHand() {
     for (let i = 0; i < playerHand.length; i++){
         imgPath = 'images/' + playerHand[i].cardSuit + playerHand[i].cardRank + '.svg';
@@ -143,6 +153,9 @@ function betDecrement() {
     if (bet < 1) {
         betMinusBtn.disabled = true;
         dealBtn.disabled = true;
+    }
+    if (bet > 0){
+        betPlusBtn.disabled = false;
     }
     currentBet.innerHTML = bet;
 }
@@ -170,23 +183,13 @@ function clearTable() {
 }
 
 function flipCard(e) {
-    //console.log("flipCard called");
     let isFlipped = playerHand[e.target.getAttribute('data-id')].flipped;
-    isFlipped = !isFlipped;
-
-    playerHand[e.target.getAttribute('data-id')].flipped = isFlipped;
-    
-    //console.log(isFlipped); 
-    if (isFlipped) {
+    if(!isFlipped) {
+        playerHand[e.target.getAttribute('data-id')].flipped = true;
         e.target.setAttribute('src', 'images/blueback.svg');
         drawButton.disabled = false;
-    } else {
-        e.target.setAttribute('src', 'images/facetest.svg');
     }
     standButton.disabled = true;
-    console.log(e);
-    console.log(e.target);    
-    console.log(playerHand);
 }
 
 function drawCards() {
