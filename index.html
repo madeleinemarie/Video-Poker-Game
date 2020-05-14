@@ -8,20 +8,36 @@
     <script defer src="js/main.js"></script>
 </head>
 <body>
-    <h2 id="message"></h2>
-    <div>
-        <h3>Bank: <span id="bank-balance"></span></h3>
+    <div id="full-game">
+        <header>
+            <h1>Video Poker</h1>
+        </header>
+        
+        <div id="interface">
+            <div class="money-box">
+                <h3>Bank: <span id="bank-balance"></span></h3>
+            </div>
+            
+            <div class="middle-space">
+                <h2 id="message"></h2>
+                <div id="button-block">
+                    <div><button id="newgame-btn" class="hide">New Game</button></div>
+                    <div><button id="deal-btn">Deal</button></div>
+                    <div><button id="stand-btn">Stand</button></div>
+                    <div><button id="draw-btn">Draw</button></div>
+                </div>
+                
+            </div>
+            <div id="bet-table" class="money-box">
+                <div id="inline">
+                    <p>Bet: <span id="bet-num"></span> <img class="coin-img" src=images/coin.png></p>
+                </div>
+                <button id="bet-minus">-</button>
+                <button id="bet-plus">+</button>
+            </div>
+        </div>
+        
+        <div id="game-table"></div>
     </div>
-    <button id="newgame-btn" class="hide">New Game</button>
-    <button id="deal-btn">Deal</button>
-    <button id="stand-btn">Stand</button>
-    <button id="draw-btn">Draw</button>
-    <div id="bet-table">
-        <h3>Bet: <span id="bet-num"></span></h3>
-        <button id="bet-minus">-</button>
-        <button id="bet-plus">+</button>
-    </div>
-    <div id="game-table"></div>
-    
 </body>
 </html>
