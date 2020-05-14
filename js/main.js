@@ -48,7 +48,6 @@ const payoutInfo = [
     }
  ];
 
-
 let deckOrdered = [];
 let deckShuffled = [];
 let playerHand = [];
@@ -68,8 +67,6 @@ const dealBtn = document.getElementById('deal-btn');
 const newGameBtn = document.getElementById('newgame-btn');
 const betDisplay = document.getElementById('bet-table');
 
-
-
 function init() {
     deckOrdered = createOrderedDeck();
     deckShuffled = createShuffledDeck();
@@ -86,7 +83,7 @@ function init() {
     dealBtn.disabled = true;
     standButton.disabled = true;
     renderCardBacks();
-}
+};
 
 function createOrderedDeck() {
     const deck = [];
@@ -98,7 +95,6 @@ function createOrderedDeck() {
     return deck;
 };
 
-
 function createShuffledDeck() {
     const tempDeck = [...deckOrdered];
     shuffledDeck = [];
@@ -109,19 +105,13 @@ function createShuffledDeck() {
     return shuffledDeck;
 };
 
-
 function createStartingHand() {
     clearTable();
     bankBalance -= bet;
     bankDisplay.innerHTML = bankBalance;
     for(let i = 0; i < 5; i++) {
-        console.log(deckShuffled[0]);
         playerHand.push(deckShuffled.shift());
     }
-    console.log('Player Hand -----');
-    console.log(playerHand);
-    console.log('New deck, should be minus 5-----');
-    console.log(deckShuffled);
     dealBtn.disabled = true;
     standButton.disabled = false;
     betPlusBtn.disabled = true;
@@ -135,7 +125,7 @@ function renderCardBacks() {
 		cardBackElement.setAttribute('src', 'images/blueback.svg');
 		gameTable.appendChild(cardBackElement);
 	}
-}
+};
 
 function renderHand() {
     for (let i = 0; i < playerHand.length; i++){
@@ -146,7 +136,7 @@ function renderHand() {
 		cardElement.addEventListener('click', flipCard);
 		gameTable.appendChild(cardElement);
 	}
-}
+};
 
 function betDecrement() {
         bet--;
@@ -158,7 +148,7 @@ function betDecrement() {
         betPlusBtn.disabled = false;
     }
     currentBet.innerHTML = bet;
-}
+};
 
 function betIncrement() {
     bet++;
@@ -170,17 +160,13 @@ function betIncrement() {
         betMinusBtn.disabled = false;
     }
     currentBet.innerHTML = bet;
-}
+};
 
 function clearTable() {
-    console.log("Table was cleared");
-	// for (let i = 0; i < playerHand.length; i++){
-	// 	gameTable.removeChild(gameTable.childNodes[0]);
-    // }
     while(gameTable.hasChildNodes()){
         gameTable.removeChild(gameTable.lastChild);
     }
-}
+};
 
 function flipCard(e) {
     let isFlipped = playerHand[e.target.getAttribute('data-id')].flipped;
@@ -190,10 +176,9 @@ function flipCard(e) {
         drawButton.disabled = false;
     }
     standButton.disabled = true;
-}
+};
 
 function drawCards() {
-    console.log("draw was clicked");
     for(i = 0; i < playerHand.length; i++) {
         if (playerHand[i].flipped === true) {
             newCard = deckShuffled.shift();
@@ -203,14 +188,13 @@ function drawCards() {
     clearTable();
     renderHand();
     checkWin();
-}
+};
 
 function sortHand() { 
-    playerHand.sort((a, b) => a.cardRank - b.cardRank); //sorts cards by rank for easier win checking
-}
+    playerHand.sort((a, b) => a.cardRank - b.cardRank);
+};
 
 function checkWin() {
-    //console.log("Inside checkwin");
     sortHand();
     let isFlush = flushFlag();
     let isStraight = straightFlag();
@@ -239,7 +223,7 @@ function disableFlip() {
     childArr.forEach(function(child) {
         child.removeEventListener('click', flipCard);
     })
-}
+};
 
 function flushFlag() { 
     let suit = playerHand[0].cardSuit;
@@ -264,7 +248,6 @@ function straightFlag() {
 function checkRoyal() {
     royalArr = [1, 10, 11, 12, 13];
     rankArr = playerHand.map(item => item.cardRank);
-    console.log(rankArr);
     for (let i = 0; i < royalArr.length; i++) {
         if (royalArr[i] !== rankArr[i]) {
             return false;
@@ -302,10 +285,9 @@ function runPayout(winNum) {
 function endGame() {
     toggleButtons();
     newGameBtn.addEventListener('click', newGame);
-}
+};
 
 function newGame(){
-    console.log("New Game button clicked");
     bet = 0;
     payout = null;
     deckOrdered = [];
@@ -316,7 +298,7 @@ function newGame(){
     toggleButtons();
     clearTable();
     init();
-}
+};
 
 function toggleButtons() {
     newGameBtn.classList.toggle("hide");
@@ -324,11 +306,6 @@ function toggleButtons() {
     drawButton.classList.toggle("hide");
     betDisplay.classList.toggle("hide");
     standButton.classList.toggle("hide");
-}
+};
 
 init();
-
-console.log("Ordered Deck -------");
-console.log(deckOrdered);
-console.log("Shuffled Deck -------");
-console.log(deckShuffled);
