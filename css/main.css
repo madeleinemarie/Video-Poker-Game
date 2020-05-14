@@ -1,3 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #054B2C;
+    color: white;
+}
+
 #bet-display {
     display: inline-block;
 }
@@ -7,9 +15,17 @@
 }
 
 img {
-    border: 2px solid black;
+    border: 2px solid #2e2e2e;
     margin: 1em;
     border-radius: .5em;
     max-width: 180px;
     height: auto;
+    background-color: #fcfcfc;
+}
+
+#game-table {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
