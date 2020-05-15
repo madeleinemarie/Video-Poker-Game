@@ -305,7 +305,6 @@ function toggleButtons() {
     newGameBtn.classList.toggle("hide");
     dealBtn.classList.toggle("hide");
     drawButton.classList.toggle("hide");
-    //betDisplay.classList.toggle("hide");
     standButton.classList.toggle("hide");
 };
 
