@@ -46,7 +46,7 @@ const payoutInfo = [
         winName: "Straight Flush", 
         pay: 50
     }
- ];
+];
 
 let deckOrdered = [];
 let deckShuffled = [];
@@ -77,7 +77,6 @@ function init() {
     standButton.addEventListener('click', drawCards);
     bankDisplay.innerHTML = bankBalance + '<img src="images/coin.png">';
     message.innerHTML = 'Place your bet!';
-    //message.addClass('blink');
     currentBet.innerHTML = bet;
     drawButton.disabled = true;
     betMinusBtn.disabled = true;
