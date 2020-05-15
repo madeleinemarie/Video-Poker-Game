@@ -75,8 +75,9 @@ function init() {
     betMinusBtn.addEventListener('click', betDecrement);
     betPlusBtn.addEventListener('click', betIncrement);
     standButton.addEventListener('click', drawCards);
-    bankDisplay.innerHTML = bankBalance;
+    bankDisplay.innerHTML = bankBalance + '<img src="images/coin.png">';
     message.innerHTML = 'Place your bet!';
+    //message.addClass('blink');
     currentBet.innerHTML = bet;
     drawButton.disabled = true;
     betMinusBtn.disabled = true;
@@ -107,8 +108,9 @@ function createShuffledDeck() {
 
 function createStartingHand() {
     clearTable();
+    message.innerHTML = ".................."
     bankBalance -= bet;
-    bankDisplay.innerHTML = bankBalance;
+    bankDisplay.innerHTML = bankBalance + '<img src="images/coin.png">';
     for(let i = 0; i < 5; i++) {
         playerHand.push(deckShuffled.shift());
     }
@@ -276,9 +278,9 @@ function checkOtherHands() {
 };
 
 function runPayout(winNum) {
-    message.innerHTML = payoutInfo[winNum].winName;
+    message.innerHTML = payoutInfo[winNum].winName + '! You won ' + payoutInfo[winNum].pay * bet + '<img src="images/coin.png">';
     bankBalance += payoutInfo[winNum].pay * bet;
-    bankDisplay.innerHTML = bankBalance;
+    bankDisplay.innerHTML = bankBalance + '<img src="images/coin.png">';
     endGame();
 };
 
@@ -304,7 +306,7 @@ function toggleButtons() {
     newGameBtn.classList.toggle("hide");
     dealBtn.classList.toggle("hide");
     drawButton.classList.toggle("hide");
-    betDisplay.classList.toggle("hide");
+    //betDisplay.classList.toggle("hide");
     standButton.classList.toggle("hide");
 };
 
