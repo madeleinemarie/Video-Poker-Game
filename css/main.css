@@ -1,38 +1,28 @@
 * {
     box-sizing: border-box;
 }
+
 body {
-    /* background-color: #054B2C; */
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: #1f2c52;
+    color: #474973;
+    font-family: 'Press Start 2P', sans-serif;
     margin: 0 10%;
 
 }
 
 #full-game {
-    background-color: #054B2C;
+    background-color: #f2f2f2;
     border-radius: 1em;
     padding: 2em 5em 5em 5em;
     margin-top: 5em;
 }
 
-#bet-display {
-    display: inline-block;
-}
-
-.hide {
-    display: none;
-}
 
 h1 {
     text-align: center;
-    margin: 2em;
-    color: white;
-}
-
-#message {
-    color: white;
-    display: block;
+    margin: 1.5em;
+    color: #474973;
+    font-size: 52px;
 }
 
 #interface {
@@ -42,24 +32,121 @@ h1 {
     flex-shrink: 1;
 }
 
+/*****************BANK*****************/
+
+.money-box {
+    background-color: white;
+    height: 10em;
+    /* width: 13em; */
+    min-width: 14em;
+    border-radius: 0.8em;
+    /* border: 5px dashed gainsboro; */
+    font-size: 1em;
+}
+
+#bank-balance {
+    font-size: 1.5em;
+    color: #FFC857;
+}
+
+#bank-balance > img {
+    max-height: 1.1em;
+    padding-left: .2em;
+    vertical-align: 10%;
+    filter:hue-rotate(-12deg);
+}
+
+h3 {
+    font-size: 1.5em;
+    margin: 1.4em 0em;
+}
+
+/**************MSG & BUTTONS*************/
+
+.middle-space {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
+
+#message {
+    color: #FFC857;
+    display: block;
+    /* flex-shrink: 0; */
+
+}
+
+#message > img {
+    max-height: 1em;
+    padding-left: .5em;
+    filter:hue-rotate(-12deg);
+}
+
+@keyframes blinkingText{
+    0%{     color: #FFC857;    }
+    49%{    color: #FFC857; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #FFC857;    }
+}
+
+.blink {
+    animation-name: blinkingText;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 3;
+}
+
+#button-block {
+    display: flex;
+    justify-content: center;
+
+}
+
+#deal-btn, #stand-btn, #draw-btn, #newgame-btn {
+    background: none;
+    border: none;
+    padding: 1.4em 2em 1em 2em;
+    font-size: 18px;
+    max-width: 15em;
+    margin: 1em 2em;
+    min-width: 0;
+    color: #FE4A49;
+    font-family: 'Press Start 2P', sans-serif;
+    transition: 0.25s;
+    box-shadow: 
+      0.4em 0.4em 0 0 #FE4A49,
+      inset 0.4em 0.4em 0 0 #FE4A49;
+    /* border-color: #19bc8b; */
+    /* vertical-align: 40%; */
+}
+
+#deal-btn:hover, #stand-btn:hover, #draw-btn:hover, #newgame-btn:hover {
+    box-shadow: 
+    0 0 0 0 white,
+    inset 6em 3.5em 0 0 #FE4A49;
+    color: white;
+}
+
+
+#deal-btn:disabled, #stand-btn:disabled, #draw-btn:disabled {
+    /* border: 2px solid grey; */
+    color: grey;
+    box-shadow: 
+      0.4em 0.4em 0 0 grey,
+      inset 0.4em 0.4em 0 0 grey;
+}
+
+/***************BET****************/
+
+/* #bet-table > div > h3{
+   margin-bottom: 0.3em;
+} */
+
 #bet-num {
     text-align: center;
-}
-
-#game-table {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-#game-table img {
-    border: 2px solid #2e2e2e;
-    margin: 1em;
-    border-radius: .5em;
-    max-width: 180px;
-    height: auto;
-    background-color: #fcfcfc;
+    padding-left: .5em;
+    color: #FFC857;
 }
 
 #inline {
@@ -67,49 +154,77 @@ h1 {
     justify-content: center;
 }
 
-.coin-img {
-    height: 24px;
-    padding-top: .2em;
-}
-
 p {
-    font-size: 26px;
-    display: inline;
+    font-size: 1.17em;
+    /* display: inline; */
 }
 
-#button-block {
-    display: flex;
-    flex-shrink: 1;
+.coin-img {
+    height: 1.1em;
+    padding-left: 0.3em;
+    filter:hue-rotate(-12deg);
 }
 
-
-.money-box {
-    background-color: white;
-    height: 10em;
-    width: 15em;
-    min-width: 15em;
-    border-radius: 1em;
-    border: 5px dashed gainsboro;
+#bet-minus, #bet-plus{
+    /* border: 0.4em solid #FE4A49; */
+    border: none;
+    min-width: 2.5em;
+    min-height: 2.5em;
+    max-height: 3em;
+    max-width: 4em;
+    font-weight: bold;
+    font-size: 1em;
+    padding-top: 0.2em;
+    padding-left: 0.5em;
+    /* background-color: #FE4A49; */
+    box-shadow: 
+      0.3em 0.3em 0 0 #FE4A49,
+      inset 0.3em 0.3em 0 0 #FE4A49;
 }
 
-.middle-space {
-    display: flex;
-    flex-direction: column;
-}
-
-#deal-btn, #stand-btn, #draw-btn {
-    border: 2px solid white;
-    border-radius: .5em;
-    background-color: #054B2C;
-    padding: 1em 2em;
-    font-size: 18px;
+#bet-minus:hover, #bet-plus:hover {
+    box-shadow: 
+    0 0 0 0 white,
+    inset 6em 3.5em 0 0 #FE4A49;
     color: white;
-    max-width: 15em;
-    margin: 1em 2em;
-    min-width: 0;
+
 }
 
-#deal-btn:disabled, #stand-btn:disabled, #draw-btn:disabled {
-    border: 2px solid grey;
-    color: grey;
+/***************CARDS****************/
+
+#game-table {
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
+
+#game-table img {
+    /* border: 2px solid #2e2e2e; */
+    border-radius: .5em;
+    margin: 1em;
+    max-width: 180px;
+    height: auto;
+    background-color: #fcfcfc;
+    opacity: 0.8;
+    box-shadow: 
+      0.3em 0.3em 0 0 lightgrey;
+      /* inset 0.4em 0.4em 0 0 grey; */
+}
+
+.hide {
+    display: none;
+}
+
+#character-space {
+    letter-spacing: .5em;
+}
+
+#super {
+    vertical-align: 20%
+}
+
+
+  
+
