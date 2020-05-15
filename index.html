@@ -5,32 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script defer src="js/main.js"></script>
 </head>
 <body>
     <div id="full-game">
         <header>
-            <h1>Video Poker</h1>
+            <h1><span id="character-space"><span id="super">&squf;</span></span>VIDEO POKE<span id="character-space">R<span id="super">&squf;</span></span></h1>
         </header>
         
         <div id="interface">
             <div class="money-box">
-                <h3>Bank: <span id="bank-balance"></span></h3>
+                <h3>Bank:</h3>
+                <p id="bank-balance"><img class="coin-img" src=images/coin.png></p>
             </div>
             
             <div class="middle-space">
-                <h2 id="message"></h2>
+                <div><h2 id="message" class="blink"></h2></div>
                 <div id="button-block">
-                    <div><button id="newgame-btn" class="hide">New Game</button></div>
-                    <div><button id="deal-btn">Deal</button></div>
+                    <div><button id="newgame-btn" class="hide" class="offset">New Game</button></div>
+                    <div><button id="deal-btn" class="offset">Deal</button></div>
                     <div><button id="stand-btn">Stand</button></div>
                     <div><button id="draw-btn">Draw</button></div>
                 </div>
                 
             </div>
             <div id="bet-table" class="money-box">
-                <div id="inline">
-                    <p>Bet: <span id="bet-num"></span> <img class="coin-img" src=images/coin.png></p>
+                <div >
+                    <h3>Bet:<span id="bet-num"></span><img class="coin-img" src=images/coin.png></h3>
                 </div>
                 <button id="bet-minus">-</button>
                 <button id="bet-plus">+</button>
@@ -38,6 +40,16 @@
         </div>
         
         <div id="game-table"></div>
+        <div id="info">
+            <div id="payout-table">
+                
+            </div>
+            <div id="instructions">
+
+
+            </div>
+
+        </div>
     </div>
 </body>
 </html>
