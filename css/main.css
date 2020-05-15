@@ -7,16 +7,14 @@ body {
     color: #474973;
     font-family: 'Press Start 2P', sans-serif;
     margin: 0 10%;
-
 }
 
 #full-game {
     background-color: #f2f2f2;
     border-radius: 1em;
-    padding: 2em 5em 5em 5em;
+    padding: 1em 5em 5em 5em;
     margin-top: 5em;
 }
-
 
 h1 {
     text-align: center;
@@ -32,15 +30,11 @@ h1 {
     flex-shrink: 1;
 }
 
-/*****************BANK*****************/
-
 .money-box {
     background-color: white;
     height: 10em;
-    /* width: 13em; */
     min-width: 14em;
     border-radius: 0.8em;
-    /* border: 5px dashed gainsboro; */
     font-size: 1em;
 }
 
@@ -61,8 +55,6 @@ h3 {
     margin: 1.4em 0em;
 }
 
-/**************MSG & BUTTONS*************/
-
 .middle-space {
     display: flex;
     flex-direction: column;
@@ -72,8 +64,6 @@ h3 {
 #message {
     color: #FFC857;
     display: block;
-    /* flex-shrink: 0; */
-
 }
 
 #message > img {
@@ -117,8 +107,6 @@ h3 {
     box-shadow: 
       0.4em 0.4em 0 0 #FE4A49,
       inset 0.4em 0.4em 0 0 #FE4A49;
-    /* border-color: #19bc8b; */
-    /* vertical-align: 40%; */
 }
 
 #deal-btn:hover, #stand-btn:hover, #draw-btn:hover, #newgame-btn:hover {
@@ -130,18 +118,11 @@ h3 {
 
 
 #deal-btn:disabled, #stand-btn:disabled, #draw-btn:disabled {
-    /* border: 2px solid grey; */
     color: grey;
     box-shadow: 
       0.4em 0.4em 0 0 grey,
       inset 0.4em 0.4em 0 0 grey;
 }
-
-/***************BET****************/
-
-/* #bet-table > div > h3{
-   margin-bottom: 0.3em;
-} */
 
 #bet-num {
     text-align: center;
@@ -156,7 +137,6 @@ h3 {
 
 p {
     font-size: 1.17em;
-    /* display: inline; */
 }
 
 .coin-img {
@@ -166,17 +146,17 @@ p {
 }
 
 #bet-minus, #bet-plus{
-    /* border: 0.4em solid #FE4A49; */
+    margin-top: -0.9em;
     border: none;
     min-width: 2.5em;
     min-height: 2.5em;
-    max-height: 3em;
-    max-width: 4em;
+    max-height: 2.5em;
+    max-width: 2.5em;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1.2em;
     padding-top: 0.2em;
     padding-left: 0.5em;
-    /* background-color: #FE4A49; */
+    transition: 0.25s;
     box-shadow: 
       0.3em 0.3em 0 0 #FE4A49,
       inset 0.3em 0.3em 0 0 #FE4A49;
@@ -187,10 +167,18 @@ p {
     0 0 0 0 white,
     inset 6em 3.5em 0 0 #FE4A49;
     color: white;
-
 }
 
-/***************CARDS****************/
+#bet-minus:disabled, #bet-plus:disabled {
+    color: grey;
+    box-shadow: 
+      0.3em 0.3em 0 0 grey,
+      inset 0.3em 0.3em 0 0 grey;
+}
+
+#bet-minus:focus, #bet-plus:focus {
+    outline: none;
+}
 
 #game-table {
     margin-top: 2em;
@@ -198,10 +186,10 @@ p {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    min-height: 10em;
 }
 
 #game-table img {
-    /* border: 2px solid #2e2e2e; */
     border-radius: .5em;
     margin: 1em;
     max-width: 180px;
@@ -210,7 +198,6 @@ p {
     opacity: 0.8;
     box-shadow: 
       0.3em 0.3em 0 0 lightgrey;
-      /* inset 0.4em 0.4em 0 0 grey; */
 }
 
 .hide {
@@ -225,6 +212,42 @@ p {
     vertical-align: 20%
 }
 
+#info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #474973;
+    border-radius: 1em;
+    padding: 2em 4em;
+    margin-top: 1em;
+    margin-bottom: 5em;
+    color: #f2f2f2;
+    align-items: center;
+}
 
-  
+#payout-table{
+    color: #FFDE9A;
+    align-self: center;
+}
 
+#payout-table > h4{
+    margin: 0;
+    line-height: 2em;
+}
+
+#instructions > h4{
+    margin: 0;
+    line-height: 2em;
+}
+
+h5 {
+    text-align: right;
+}
+
+a {
+    text-decoration: none;
+    color: #FE4A49;
+}
+
+a:hover {
+    color: white;
+}
