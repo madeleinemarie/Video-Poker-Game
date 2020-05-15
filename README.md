@@ -2,7 +2,7 @@
 
 ### A browser-based game that simulates a video poker console. 
 
-![Game Screenshot](https://i.imgur.com/F4E2plG.png?1)
+![Game Screenshot](https://i.imgur.com/0iqWpGZ.png?1)
 
 #### [PLAY THE GAME](https://madeleinemarie.github.io/Video-Poker-Game/)
 
